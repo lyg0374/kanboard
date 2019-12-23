@@ -62,6 +62,8 @@ class SubtaskExport extends Base
             e('Time spent'),
             e('Task Id'),
             e('Task Title'),
+            e('Due Date'),
+            e('Category'),
         );
     }
 
@@ -74,6 +76,12 @@ class SubtaskExport extends Base
      */
     public function format(array $subtask)
     {
+        $subtask = $this->dateParser->format(
+            $subtask,
+            array('due_date'),
+            $this->dateParser->getUserDateFormat()
+        );
+
         $values = array();
         $values[] = $subtask['id'];
         $values[] = $subtask['title'];
@@ -83,6 +91,8 @@ class SubtaskExport extends Base
         $values[] = $subtask['time_spent'];
         $values[] = $subtask['task_id'];
         $values[] = $subtask['task_title'];
+        $values[] = $subtask['due_date'];
+        $values[] = $subtask['category_subtask'];
 
         return $values;
     }

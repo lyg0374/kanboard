@@ -53,7 +53,12 @@ class SubtaskStatusModel extends Base
     public function toggleStatus($subtask_id)
     {
         $subtask = $this->subtaskModel->getById($subtask_id);
-        $status = ($subtask['status'] + 1) % 3;
+        //        $status = ($subtask['status'] + 1) % 3;
+        if ($subtask['status'] == 1 || $subtask['status'] == 0) {
+            $status = 2;
+        } else if ($subtask['status'] == 2) {
+            $status = 0;
+        }
 
         $values = array(
             'id' => $subtask['id'],
